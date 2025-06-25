@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老年认知训练 - 文字图形配对</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f4e9, #e8f5e9);
+            color: #4a4a4a;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            color: #5a7247;
+            font-size: 32px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #5a7247;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .welcome-text {
+            font-size: 18px;
+            color: #5a7247;
+        }
+        
+        .user-name {
+            font-weight: bold;
+            color: #8db596;
+        }
+        
+        .points-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #8db596, #7aa384);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 进度卡片样式 */
+        .progress-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid #e8d9b5;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .progress-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #5a7247;
+        }
+        
+        .level-badge {
+            background: linear-gradient(135deg, #8db596, #7aa384);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+        
+        .progress-bar {
+            height: 16px;
+            background-color: #e8d9b5;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8db596, #7aa384);
+            border-radius: 8px;
+            width: 72%;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+        }
+        
+        .completed-text {
+            color: #5a7247;
+            font-weight: 500;
+        }
+        
+        .reward-text {
+            color: #7aa384;
+            font-weight: 500;
+        }
+        
+        /* 游戏卡片样式 */
+        .game-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e8d9b5;
+            transition: all 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .game-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8db596, #7aa384);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            margin: 0 auto 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .game-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #5a7247;
+            margin-bottom: 16px;
+        }
+        
+        .game-description {
+            font-size: 20px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 220px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 3px solid #e8d9b5;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .start-btn {
+            background: linear-gradient(135deg, #8db596, #7aa384);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 22px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            margin: 10px;
+        }
+        
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* 游戏区域样式 */
+        .game-area {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e8d9b5;
+            display: none;
+        }
+        
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .game-title-area {
+            font-size: 28px;
+            font-weight: bold;
+            color: #5a7247;
+        }
+        
+        .game-stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f7f2;
+            color: #5a7247;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        /* 配对游戏特定样式 */
+        .matching-game-container {
+            background: linear-gradient(135deg, #f0f7f2, #e0efe5);
+            border: 3px solid #8db596;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 0 auto 30px;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .instruction-text {
+            font-size: 26px;
+            color: #5a7247;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 90%;
+        }
+        
+        .game-status {
+            font-size: 28px;
+            font-weight: bold;
+            color: #5a7247;
+            margin-bottom: 30px;
+            min-height: 40px;
+            text-align: center;
+            padding: 10px 20px;
+            background: #f0f7f2;
+            border-radius: 50px;
+        }
+        
+        .matching-area {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .image-column, .text-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 45%;
+            min-width: 300px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 3px solid #e8d9b5;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            border-color: #8db596;
+        }
+        
+        .card.selected {
+            transform: scale(0.95);
+            box-shadow: 0 0 20px rgba(139, 195, 74, 0.5);
+            border-color: #8db596;
+        }
+        
+        .card.matched {
+            opacity: 0.6;
+            transform: scale(0.98);
+            box-shadow: 0 0 15px rgba(139, 195, 74, 0.3);
+            border-color: #7aa384;
+        }
+        
+        .card.matched::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #5a7247;
+            font-size: 24px;
+        }
+        
+        .image-card .icon {
+            font-size: 70px;
+            color: #5a7247;
+            margin-bottom: 15px;
+        }
+        
+        .text-card {
+            font-size: 28px;
+            color: #5a7247;
+            font-weight: 600;
+        }
+        
+        .controls-guide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: #f0f7f2;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 30px;
+        }
+        
+        .controls-title {
+            font-size: 20px;
+            color: #5a7247;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        
+        .game-controls-top {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: linear-gradient(135deg, #8db596, #7aa384);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .control-btn.hint {
+            background: linear-gradient(135deg, #ffd93d, #f1c40f);
+        }
+        
+        .control-btn.exit {
+            background: linear-gradient(135deg, #a0a0a0, #808080);
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e8d9b5;
+        }
+        
+        .result-title {
+            font-size: 20px;
+            color: #5a7247;
+            margin-bottom: 10px;
+        }
+        
+        .result-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #5a7247;
+        }
+        
+        .best {
+            color: #e6b800;
+        }
+        
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        /* 结果弹窗样式 */
+        .result-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .result-content {
+            background: white;
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 90%;
+            width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .trophy-icon {
+            font-size: 80px;
+            color: gold;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+        
+        .result-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #5a7247;
+            margin-bottom: 16px;
+        }
+        
+        .result-text {
+            font-size: 24px;
+            color: #7aa384;
+            margin-bottom: 32px;
+        }
+        
+        .score-display {
+            font-size: 28px;
+            color: #5a7247;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        
+        .score-value {
+            color: #e6b800;
+            font-size: 36px;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+        
+        .stat-box {
+            background: #f0f7f2;
+            border-radius: 16px;
+            padding: 20px;
+            min-width: 140px;
+        }
+        
+        .stat-title {
+            font-size: 20px;
+            color: #7aa384;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #5a7247;
+        }
+        
+        .reward-box {
+            background: #fcf8e8;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .coins-icon {
+            font-size: 48px;
+            color: #e6b800;
+            margin-bottom: 12px;
+        }
+        
+        .reward-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #5a7247;
+        }
+        
+        .reward-amount {
+            color: #e6b800;
+            font-size: 32px;
+        }
+        
+        .result-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .results-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .matching-area {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .image-column, .text-column {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .game-header {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-stats {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .results-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .start-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .card {
+                min-height: 120px;
+                padding: 20px;
+            }
+            
+            .image-card .icon {
+                font-size: 50px;
+            }
+            
+            .text-card {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .result-buttons {
+                flex-direction: column;
+            }
+            
+            .control-btn, .start-btn {
+                width: 100%;
+                padding: 16px;
+            }
+            
+            .instruction-text {
+                font-size: 22px;
+            }
+            
+            .game-controls-top {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .image-card .icon {
+                font-size: 40px;
+            }
+            
+            .text-card {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">老年认知训练中心</div>
+            </div>
+            <div class="user-info">
+                <div class="welcome-text">欢迎, <span class="user-name">张爷爷</span></div>
+                <div class="points-badge">
+                    <i class="fas fa-star"></i>
+                    <span>245 积分</span>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- 进度卡片 -->
+        <div class="progress-card">
+            <div class="progress-header">
+                <div class="progress-title">您的训练进度</div>
+                <div class="level-badge">第 7 关</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="progress-footer">
+                <div class="completed-text">已完成: 72%</div>
+                <div class="reward-text">下一关奖励: 38积分</div>
+            </div>
+        </div>
+        
+        <!-- 文字图形配对游戏卡片 -->
+        <div class="game-card" id="matchingGameCard">
+            <div class="game-icon">
+                <i class="fas fa-puzzle-piece"></i>
+            </div>
+            <h2 class="game-title">文字图形配对</h2>
+            <p class="game-description">
+                训练您的认知能力，将文字描述与对应的图形正确匹配。提升记忆力和视觉识别能力。
+            </p>
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" 
+                 alt="文字图形配对游戏" class="game-image">
+            <button class="start-btn" id="startMatchingGameBtn">
+                <i class="fas fa-play"></i> 开始游戏
+            </button>
+        </div>
+        
+        <!-- 游戏区域 -->
+        <div id="matchingGameArea" class="game-area">
+            <div class="game-header">
+                <div class="game-title-area">文字图形配对游戏</div>
+                <div class="game-stats">
+                    <div class="stat-badge">
+                        <i class="fas fa-check-circle"></i>
+                        配对: <span id="matchedPairs">0</span>/<span id="totalPairs">6</span>
+                    </div>
+                    <div class="stat-badge">
+                        <i class="fas fa-clock"></i>
+                        用时: <span id="gameTimer">0</span>秒
+                    </div>
+                    <div class="stat-badge">
+                        <i class="fas fa-lightbulb"></i>
+                        提示: <span id="hintsUsed">0</span>/3
+                    </div>
+                </div>
+            </div>
+            
+            <div class="matching-game-container">
+                <div class="game-status" id="gameStatus">
+                    请选择图形，然后选择对应的文字描述
+                </div>
+                
+                <div class="instruction-text">
+                    点击左侧图形，再点击右侧对应的文字描述进行配对
+                </div>
+                
+                <div class="matching-area">
+                    <div class="image-column" id="imageColumn">
+                        <!-- 图形卡片将通过JavaScript动态生成 -->
+                    </div>
+                    
+                    <div class="text-column" id="textColumn">
+                        <!-- 文字卡片将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="controls-guide">
+                    <div class="controls-title">游戏说明</div>
+                    <p style="text-align: center; color: #5a7247; line-height: 1.6; margin-bottom: 15px;">
+                        从左侧选择一个图形卡片，然后从右侧选择对应的文字描述卡片进行配对。<br>
+                        所有配对完成后游戏结束。您有3次提示机会。
+                    </p>
+                </div>
+                
+                <div class="game-controls-top">
+                    <button class="control-btn" id="resetGameBtn">
+                        <i class="fas fa-redo"></i> 重新开始
+                    </button>
+                    <button class="control-btn hint" id="hintBtn">
+                        <i class="fas fa-lightbulb"></i> 提示帮助
+                    </button>
+                    <button class="control-btn exit" id="exitGameBtn">
+                        <i class="fas fa-times"></i> 退出游戏
+                    </button>
+                </div>
+            </div>
+            
+            <div class="results-container">
+                <div class="result-card">
+                    <div class="result-title">正确配对</div>
+                    <div class="result-value" id="correctPairs">0</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-title">错误尝试</div>
+                    <div class="result-value" id="incorrectAttempts">0</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-title">得分</div>
+                    <div class="result-value" id="gameScore">0</div>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <button class="control-btn" id="newGameBtn">
+                    <i class="fas fa-plus-circle"></i> 新游戏
+                </button>
+            </div>
+        </div>
+        
+        <!-- 结果弹窗 -->
+        <div id="resultModal" class="result-modal">
+            <div class="result-content">
+                <div class="trophy-icon" id="resultIcon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2 class="result-title" id="resultTitle">配对完成!</h2>
+                
+                <div class="score-display">
+                    得分: <span class="score-value" id="finalScore">0</span>
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-title">正确配对</div>
+                        <div class="stat-value" id="finalCorrect">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-title">错误次数</div>
+                        <div class="stat-value" id="finalIncorrect">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-title">用时</div>
+                        <div class="stat-value" id="finalTime">0</div>
+                    </div>
+                </div>
+                
+                <div class="reward-box">
+                    <div class="coins-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="reward-text">
+                        获得 <span class="reward-amount">30</span> 积分
+                    </div>
+                </div>
+                
+                <div class="result-buttons">
+                    <button class="control-btn" id="modalPlayAgainBtn">
+                        <i class="fas fa-redo"></i> 再玩一次
+                    </button>
+                    <button class="control-btn exit" id="modalFinishBtn">
+                        <i class="fas fa-check"></i> 完成
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const matchingGameCard = document.getElementById('matchingGameCard');
+        const matchingGameArea = document.getElementById('matchingGameArea');
+        const startMatchingGameBtn = document.getElementById('startMatchingGameBtn');
+        const imageColumn = document.getElementById('imageColumn');
+        const textColumn = document.getElementById('textColumn');
+        const gameStatus = document.getElementById('gameStatus');
+        const resultModal = document.getElementById('resultModal');
+        const resetGameBtn = document.getElementById('resetGameBtn');
+        const exitGameBtn = document.getElementById('exitGameBtn');
+        const hintBtn = document.getElementById('hintBtn');
+        const newGameBtn = document.getElementById('newGameBtn');
+        const modalPlayAgainBtn = document.getElementById('modalPlayAgainBtn');
+        const modalFinishBtn = document.getElementById('modalFinishBtn');
+        
+        // 游戏状态元素
+        const matchedPairs = document.getElementById('matchedPairs');
+        const totalPairs = document.getElementById('totalPairs');
+        const gameTimerDisplay = document.getElementById('gameTimer');
+        const hintsUsed = document.getElementById('hintsUsed');
+        const correctPairs = document.getElementById('correctPairs');
+        const incorrectAttempts = document.getElementById('incorrectAttempts');
+        const gameScore = document.getElementById('gameScore');
+        
+        // 结果弹窗元素
+        const finalScore = document.getElementById('finalScore');
+        const finalCorrect = document.getElementById('finalCorrect');
+        const finalIncorrect = document.getElementById('finalIncorrect');
+        const finalTime = document.getElementById('finalTime');
+        
+        // 游戏状态
+        let gameActive = false;
+        let selectedImageCard = null;
+        let selectedTextCard = null;
+        let timerInterval = null;
+        let gameTime = 0;
+        let pairsMatched = 0;
+        let correctMatches = 0;
+        let incorrectMatches = 0;
+        let hintsAvailable = 3;
+        
+        // 游戏数据
+        const gameData = [
+            { id: 1, icon: "fas fa-apple-alt", text: "苹果", color: "#e74c3c" },
+            { id: 2, icon: "fas fa-carrot", text: "胡萝卜", color: "#e67e22" },
+            { id: 3, icon: "fas fa-tree", text: "树木", color: "#27ae60" },
+            { id: 4, icon: "fas fa-cat", text: "猫咪", color: "#9b59b6" },
+            { id: 5, icon: "fas fa-home", text: "房屋", color: "#3498db" },
+            { id: 6, icon: "fas fa-sun", text: "太阳", color: "#f1c40f" }
+        ];
+        
+        // 开始游戏
+        startMatchingGameBtn.addEventListener('click', () => {
+            matchingGameCard.style.display = 'none';
+            matchingGameArea.style.display = 'block';
+            initGame();
+        });
+        
+        // 初始化游戏
+        function initGame() {
+            gameActive = true;
+            selectedImageCard = null;
+            selectedTextCard = null;
+            gameTime = 0;
+            pairsMatched = 0;
+            correctMatches = 0;
+            incorrectMatches = 0;
+            hintsAvailable = 3;
+            
+            // 更新UI
+            gameTimerDisplay.textContent = gameTime;
+            matchedPairs.textContent = pairsMatched;
+            totalPairs.textContent = gameData.length;
+            hintsUsed.textContent = 0;
+            correctPairs.textContent = correctMatches;
+            incorrectAttempts.textContent = incorrectMatches;
+            gameScore.textContent = 0;
+            
+            // 清除计时器
+            clearInterval(timerInterval);
+            
+            // 开始计时
+            timerInterval = setInterval(() => {
+                gameTime++;
+                gameTimerDisplay.textContent = gameTime;
+            }, 1000);
+            
+            // 生成卡片
+            generateCards();
+            
+            // 更新游戏状态
+            gameStatus.textContent = "请选择图形，然后选择对应的文字描述";
+            gameStatus.style.color = "#5a7247";
+        }
+        
+        // 生成卡片
+        function generateCards() {
+            imageColumn.innerHTML = '';
+            textColumn.innerHTML = '';
+            
+            // 复制游戏数据并打乱顺序
+            const shuffledImages = [...gameData].sort(() => Math.random() - 0.5);
+            const shuffledTexts = [...gameData].sort(() => Math.random() - 0.5);
+            
+            // 生成图形卡片
+            shuffledImages.forEach(item => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'image-card');
+                card.dataset.id = item.id;
+                
+                card.innerHTML = `
+                    <div class="icon">
+                        <i class="${item.icon}" style="color: ${item.color}"></i>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => selectCard(card, 'image'));
+                imageColumn.appendChild(card);
+            });
+            
+            // 生成文字卡片
+            shuffledTexts.forEach(item => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'text-card');
+                card.dataset.id = item.id;
+                card.textContent = item.text;
+                
+                card.addEventListener('click', () => selectCard(card, 'text'));
+                textColumn.appendChild(card);
+            });
+        }
+        
+        // 选择卡片
+        function selectCard(card, type) {
+            if (!gameActive) return;
+            
+            // 如果已经匹配，则忽略点击
+            if (card.classList.contains('matched')) return;
+            
+            // 取消之前的选择
+            if (type === 'image') {
+                if (selectedImageCard) {
+                    selectedImageCard.classList.remove('selected');
+                }
+                selectedImageCard = card;
+                selectedImageCard.classList.add('selected');
+                
+                // 如果有已选择的文字卡片，尝试匹配
+                if (selectedTextCard) {
+                    checkMatch();
+                }
+            } else {
+                if (selectedTextCard) {
+                    selectedTextCard.classList.remove('selected');
+                }
+                selectedTextCard = card;
+                selectedTextCard.classList.add('selected');
+                
+                // 如果有已选择的图形卡片，尝试匹配
+                if (selectedImageCard) {
+                    checkMatch();
+                }
+            }
+        }
+        
+        // 检查匹配
+        function checkMatch() {
+            if (!selectedImageCard || !selectedTextCard) return;
+            
+            const imageId = selectedImageCard.dataset.id;
+            const textId = selectedTextCard.dataset.id;
+            
+            if (imageId === textId) {
+                // 匹配成功
+                correctMatches++;
+                pairsMatched++;
+                
+                // 标记为已匹配
+                selectedImageCard.classList.add('matched');
+                selectedTextCard.classList.add('matched');
+                
+                // 更新UI
+                matchedPairs.textContent = pairsMatched;
+                correctPairs.textContent = correctMatches;
+                gameScore.textContent = correctMatches * 10;
+                
+                // 更新游戏状态
+                gameStatus.textContent = "匹配正确！请继续选择下一对";
+                gameStatus.style.color = "#27ae60";
+                
+                // 检查游戏是否完成
+                if (pairsMatched === gameData.length) {
+                    endGame();
+                }
+            } else {
+                // 匹配失败
+                incorrectMatches++;
+                
+                // 更新UI
+                incorrectAttempts.textContent = incorrectMatches;
+                gameStatus.textContent = "匹配错误，请再试一次";
+                gameStatus.style.color = "#e74c3c";
+                
+                // 短暂显示错误状态
+                selectedImageCard.classList.add('incorrect');
+                selectedTextCard.classList.add('incorrect');
+                
+                setTimeout(() => {
+                    if (selectedImageCard) selectedImageCard.classList.remove('incorrect', 'selected');
+                    if (selectedTextCard) selectedTextCard.classList.remove('incorrect', 'selected');
+                    selectedImageCard = null;
+                    selectedTextCard = null;
+                }, 800);
+            }
+        }
+        
+        // 提供提示
+        function provideHint() {
+            if (hintsAvailable <= 0 || !gameActive) return;
+            
+            hintsAvailable--;
+            hintsUsed.textContent = 3 - hintsAvailable;
+            
+            // 找到未匹配的卡片
+            const unmatchedImages = Array.from(imageColumn.querySelectorAll('.card:not(.matched)'));
+            const unmatchedTexts = Array.from(textColumn.querySelectorAll('.card:not(.matched)'));
+            
+            if (unmatchedImages.length === 0 || unmatchedTexts.length === 0) return;
+            
+            // 随机选择一个未匹配的图形卡片
+            const randomImage = unmatchedImages[Math.floor(Math.random() * unmatchedImages.length)];
+            const imageId = randomImage.dataset.id;
+            
+            // 找到对应的文字卡片
+            const matchingText = Array.from(textColumn.querySelectorAll('.card')).find(
+                card => card.dataset.id === imageId && !card.classList.contains('matched')
+            );
+            
+            if (!matchingText) return;
+            
+            // 高亮显示匹配的卡片
+            randomImage.classList.add('hint');
+            matchingText.classList.add('hint');
+            
+            setTimeout(() => {
+                randomImage.classList.remove('hint');
+                matchingText.classList.remove('hint');
+            }, 1500);
+        }
+        
+        // 结束游戏
+        function endGame() {
+            gameActive = false;
+            clearInterval(timerInterval);
+            
+            // 计算最终得分
+            const score = correctMatches * 10 - incorrectMatches * 2;
+            
+            // 显示结果弹窗
+            finalScore.textContent = score;
+            finalCorrect.textContent = correctMatches;
+            finalIncorrect.textContent = incorrectMatches;
+            finalTime.textContent = gameTime;
+            
+            setTimeout(() => {
+                resultModal.style.display = 'flex';
+            }, 1000);
+        }
+        
+        // 退出游戏
+        function exitGame() {
+            clearInterval(timerInterval);
+            matchingGameArea.style.display = 'none';
+            matchingGameCard.style.display = 'block';
+            resultModal.style.display = 'none';
+        }
+        
+        // 事件监听器
+        resetGameBtn.addEventListener('click', initGame);
+        exitGameBtn.addEventListener('click', exitGame);
+        hintBtn.addEventListener('click', provideHint);
+        newGameBtn.addEventListener('click', initGame);
+        modalPlayAgainBtn.addEventListener('click', () => {
+            resultModal.style.display = 'none';
+            initGame();
+        });
+        modalFinishBtn.addEventListener('click', exitGame);
+    </script>
+</body>
+</html>
